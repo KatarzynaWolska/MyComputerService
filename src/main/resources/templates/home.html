@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strona główna - My Computer Service</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+    <div th:insert="header"></div>
+    <div th:insert="sidebar"></div>
+
+    <div class="content">
+        Witaj w MyComputerService!
+        <div sec:authorize="hasRole('ROLE_CUSTOMER')">
+            <div th:each="r : ${finishedRepairs}">
+                <div th:if="${r.computerDamage.status == T(pl.wolskak.mycomputerservice.model.ComputerDamageStatus).FIXED}" class="card">
+                    <p th:text="'Usterka związana z komputerem ' + ${r.computerDamage.computer.model} + ' ' + ${r.computerDamage.computer.model}
+                        + ' została naprawiona! Fakturę za naprawę znajdziesz w sekcji faktury, a dokładniejsze informacje o usterce i naprawie znajdziesz w szczegółach komputera w sekcji  - Historia napraw'"></p>
+
+                    <a th:href="@{/customer/confirmRepairNotification/{path}(path=${r.id})}" class="more_info_btn">
+                        OK
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+
+                <div th:if="${r.computerDamage.status == T(pl.wolskak.mycomputerservice.model.ComputerDamageStatus).CANNOT_BE_FIXED}" class="card">
+                    <p th:text="'Usterka związana z komputerem ' + ${r.computerDamage.computer.model} + ' ' + ${r.computerDamage.computer.model}
+                        + ' niestety nie może zostać naprawiona! Faktura za naprawę nie została wygenerowana. Dokładniejsze informacje o usterce i naprawie znajdziesz w szczegółach komputera w sekcji  - Historia napraw'"></p>
+
+                    <a th:href="@{/customer/confirmRepairNotification/{path}(path=${r.id})}" class="more_info_btn">
+                        OK
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div sec:authorize="hasRole('ROLE_REPAIRER')">
+            <div th:each="cr : ${cancelledRepairs}">
+                <div class="card">
+                    <p th:text="'Naprawa usterki związanej ze sprzętem użytkownika: ' + ${cr.computerDamage.computer.customer.name} + ' ' + ${cr.computerDamage.computer.customer.surname}
+                        + ' - została anulowana przez klienta. Usunięto ją z Twoich zadań.'"></p>
+
+                    <a th:href="@{/repairer/confirmNotification/{path}(path=${cr.id})}" class="more_info_btn">
+                        OK
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

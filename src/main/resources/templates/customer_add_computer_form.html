@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodaj komputer - My Computer Service</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+<div th:insert="header"></div>
+<div th:insert="sidebar"></div>
+
+<div class="form-box">
+    <h1>Dodaj komputer</h1>
+    <form th:action="@{/customer/addComputer}" th:object="${computerForm}" method="post" enctype="multipart/form-data">
+        <div th:insert="computer_form" th:with="computerForm=${computerForm}"></div>
+        <input type="submit" class="submit-btn" value="Dodaj">
+    </form>
+</div>
+</body>
+</html>

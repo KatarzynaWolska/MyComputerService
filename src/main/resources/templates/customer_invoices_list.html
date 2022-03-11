@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usterki - My Auto Service</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+<div th:insert="header"></div>
+<div th:insert="sidebar"></div>
+
+<div class="content">
+    <h1><span class="underline-span">Faktury</span></h1>
+    <table class="content-table">
+        <thead>
+        <tr>
+            <th>Komputer</th>
+            <th>Temat usterki</th>
+            <th>Serwisant</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cr : ${customerRepairs}">
+            <td th:text="${cr.computerDamage.computer.brand} + ' ' + ${cr.computerDamage.computer.model}"></td>
+            <td th:text="${cr.computerDamage.topic}"></td>
+            <td th:text="${cr.computerDamage.repairer.name} + ' ' + ${cr.computerDamage.repairer.surname}"></td>
+            <td>
+                <a th:href="@{/customer/downloadInvoice/{path}(path=${cr.id})}" class="more_info_btn">
+                    Pobierz fakturę
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

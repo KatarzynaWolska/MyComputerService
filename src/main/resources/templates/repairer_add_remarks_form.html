@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodaj uwagi do usterki - My Auto Service</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+<div th:insert="header"></div>
+<div th:insert="sidebar"></div>
+
+<div class="form-box">
+    <h1>Dodaj uwagi do usterki</h1>
+    <form th:action="@{/repairer/addRemarksToComputerDamage/{path}(path=${damageId})}" method="post" enctype="multipart/form-data">
+        <p>Uwagi</p>
+        <textarea placeholder="Uwagi" name="repairerRemarks" th:value="${repairerRemarks}"></textarea>
+        <p>Wycena</p>
+        <input type=text placeholder="Wycena" name="price" th:value="*{price}">
+        <input type="submit" class="submit-btn" value="Dodaj">
+    </form>
+</div>
+</body>
+</html>

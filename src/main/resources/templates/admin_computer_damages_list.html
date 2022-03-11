@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usterki - My Auto Service</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+<div th:insert="header"></div>
+<div th:insert="sidebar"></div>
+
+<div class="content">
+    <h1><span class="underline-span">Zgłoszone usterki</span></h1>
+    <table class="content-table">
+        <thead>
+        <tr>
+            <th>Komputer</th>
+            <th>Temat</th>
+            <th>Właściciel</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ad : ${notAcceptedDamages}">
+            <td th:text="${ad.computer.brand} + ' ' + ${ad.computer.model}"></td>
+            <td th:text="${ad.topic}"></td>
+            <td th:text="${ad.computer.customer.name} + ' ' + ${ad.computer.customer.surname}"></td>
+            <td>
+                <a th:href="@{/admin/assignComputerDamage/{path}(path=${ad.id})}" class="more_info_btn">
+                    Przydziel do naprawy
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h1><span class="underline-span">W trakcie naprawy</span></h1>
+    <table class="content-table">
+        <thead>
+        <tr>
+            <th>Komputer</th>
+            <th>Temat</th>
+            <th>Właściciel</th>
+            <th>Serwisant</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="rd : ${repairingDamages}">
+            <td th:text="${rd.computer.brand} + ' ' + ${rd.computer.model}"></td>
+            <td th:text="${rd.topic}"></td>
+            <td th:text="${rd.computer.customer.name} + ' ' + ${rd.computer.customer.surname}"></td>
+            <td th:text="${rd.repairer.name} + ' ' + ${rd.repairer.surname}"></td>
+            <td>
+                <a th:href="@{/admin/deleteComputerDamage/{path}(path=${rd.id})}" class="more_info_btn delete_btn">
+                    Usuń
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

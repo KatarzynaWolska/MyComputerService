@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serwisanci - My Auto Service</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+<div th:insert="header"></div>
+<div th:insert="sidebar"></div>
+
+<div class="content">
+    <h1><span class="underline-span">Serwisanci</span></h1>
+    <label class="error-label" th:if="${deleteRepairerError != null}" th:text="${deleteRepairerError}"></label>
+    <table class="content-table">
+        <thead>
+        <tr>
+            <th>Imię i nazwisko</th>
+            <th>E-mail</th>
+            <th>Numer telefonu</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="r : ${repairers}">
+            <td th:text="${r.name} + ' ' + ${r.surname}"></td>
+            <td th:text="${r.email}"></td>
+            <td th:text="${r.phoneNumber}"></td>
+            <td>
+                <a th:href="@{/admin/deleteRepairer/{path}(path=${r.id})}" class="more_info_btn delete_btn">
+                    Usuń
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

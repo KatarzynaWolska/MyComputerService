@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zgłoś usterkę - My Auto Service</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+<div th:insert="header"></div>
+<div th:insert="sidebar"></div>
+
+<div class="form-box">
+<!--    <label th:if="${computerDamageError}" th:text="${computerDamageError}"></label>-->
+    <h1>Przydziel usterkę</h1>
+    <form th:object="${assignComputerDamageForm}" th:action="@{/admin/assignComputerDamage/{path}(path=${assignComputerDamageForm.id})}" method="post" enctype="multipart/form-data">
+        <p>Wybierz serwisanta</p>
+        <div class="select">
+            <select th:field="*{repairerId}">
+                <option th:each="r : ${repairers}" th:value="${r.id}" th:text="${r.name} + ' ' + ${r.surname}"></option>
+            </select>
+        </div>
+        <label th:if="${#fields.hasErrors('repairerId')}" th:text="${#fields.errors('repairerId').get(0)}"></label>
+
+        <input type="submit" class="submit-btn" value="Potwierdź">
+    </form>
+</div>
+</body>
+</html>

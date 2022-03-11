@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mój profil - My Auto Service</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+<div th:insert="header"></div>
+<div th:insert="sidebar"></div>
+
+<div class="content">
+    <h1><span class="underline-span">Mój profil</span></h1>
+    <div class="computer-details">
+        <div class="computer-details-position">
+            <label><span class="underline-span">Imię</span>:</label>
+            <label th:text="${userInfo.name}" class="computer-details-label"></label>
+        </div>
+        <div class="computer-details-position">
+            <label><span class="underline-span">Nazwisko</span>:</label>
+            <label th:text="${userInfo.surname}" class="computer-details-label"></label>
+        </div>
+        <div class="computer-details-position">
+            <label><span class="underline-span">E-mail</span>:</label>
+            <label th:text="${userInfo.email}" class="computer-details-label"></label>
+        </div>
+        <div class="computer-details-position">
+            <label><span class="underline-span">Numer telefonu</span>:</label>
+            <label th:text="${userInfo.phoneNumber}" class="computer-details-label"></label>
+        </div>
+        <a th:href="@{/editUser}" class="more_info_btn" style="padding: 10px">
+            Edytuj
+            <i class="fas fa-chevron-right"></i>
+        </a>
+        <a th:href="@{/changePassword}" class="more_info_btn" style="padding: 10px">
+            Zmień hasło
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    </div>
+</div>
+</body>
+</html>

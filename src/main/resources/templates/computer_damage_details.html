@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usterki - My Auto Service</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+<div th:insert="header"></div>
+<div th:insert="sidebar"></div>
+
+<div class="content">
+    <h1><span th:text="${damage.topic}"  class="underline-span"></span></h1>
+    <div class="computer-details">
+        <div class="computer-details-img">
+            <img th:if="${damage.damagePhoto != null}" th:src="@{'data:image/png;base64,'+ ${damage.generateBase64Image()}}" th:alt="${damage.damagePhoto}" src="/no-photo-available.png" alt="">
+            <img th:if="${damage.damagePhoto == null}" src="/no-photo-available.png" alt="">
+        </div>
+        <div class="computer-details-position">
+            <label><span class="underline-span">Temat</span>:</label>
+            <label th:text="${damage.topic}" class="computer-details-label"></label>
+        </div>
+        <div class="computer-details-position">
+            <label><span class="underline-span">Opis</span>:</label>
+            <label th:text="${damage.description}" class="computer-details-label"></label>
+        </div>
+        <div class="damage-status" style="margin-top: 10px">
+            <div th:if="${damage.status == T(pl.wolskak.mycomputerservice.model.ComputerDamageStatus).REPORTED}">
+                <i class="fas fa-exclamation-circle"></i><span>Usterka zgłoszona</span>
+            </div>
+            <div th:if="${damage.status == T(pl.wolskak.mycomputerservice.model.ComputerDamageStatus).ASSIGNED_TO_REPAIRER}">
+                <i style="color: dodgerblue" class="fas fa-exclamation-circle"></i><span>Przydzielona do naprawy</span>
+            </div>
+            <div th:if="${damage.status == T(pl.wolskak.mycomputerservice.model.ComputerDamageStatus).PRICED}">
+                <i style="color: dodgerblue" class="fas fa-exclamation-circle"></i><span>Wyceniona</span>
+            </div>
+            <div th:if="${damage.status == T(pl.wolskak.mycomputerservice.model.ComputerDamageStatus).ACCEPTED_BY_CUSTOMER}">
+                <i style="color: dodgerblue" class="fas fa-exclamation-circle"></i><span>W trakcie naprawy</span>
+            </div>
+            <div th:if="${damage.status == T(pl.wolskak.mycomputerservice.model.ComputerDamageStatus).CANNOT_BE_FIXED}">
+                <i style="color: red" class="fas fa-times-circle"></i><span>Usterka nie mogła zostać naprawiona</span>
+            </div>
+            <div th:if="${damage.status == T(pl.wolskak.mycomputerservice.model.ComputerDamageStatus).FIXED}">
+                <i style="color: green" class="fas fa-check-circle"></i><span>Usterka naprawiona</span>
+            </div>
+            <div th:if="${damage.status == T(pl.wolskak.mycomputerservice.model.ComputerDamageStatus).CANCELED_BY_CUSTOMER}">
+                <i style="color: red" class="fas fa-minus-circle"></i><span>Naprawa usterki została anulowana przez klienta</span>
+            </div>
+        </div>
+
+        <div th:if="${damage.repair != null}" class="computer-details-position">
+            <label><span class="underline-span">Uwagi od serwisanta</span>:</label>
+            <label th:text="${damage.repair.repairerRemarks}" class="computer-details-label"></label>
+        </div>
+        <div th:if="${damage.repair != null}" class="computer-details-position">
+            <label><span class="underline-span">Wycena</span>:</label>
+            <label th:text="${damage.repair.price}" class="computer-details-label"></label>
+        </div>
+    </div>
+</div>
+</body>
+</html>

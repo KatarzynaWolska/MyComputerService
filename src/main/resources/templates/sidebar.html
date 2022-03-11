@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+
+<div th:fragment="sidebar" class="sidebar">
+    <div sec:authorize="hasRole('ROLE_CUSTOMER')">
+        <h4><span class="underline-span">Twój serwis</span></h4>
+        <a href="/customer"><i class="fas fa-desktop"></i><span>Strona główna</span></a>
+        <a href="/customer/myComputers"><i class="fas fa-laptop"></i><span>Komputery</span></a>
+        <a href="/customer/computerDamages"><i class="fas fa-window-close"></i><span>Aktywne usterki</span></a>
+        <a href="/customer/invoices"><i class="fas fa-file-invoice"></i><span>Faktury</span></a>
+        <a href="/userInfo"><i class="fas fa-user"></i><span>Mój profil</span></a>
+
+        <h4><span class="underline-span">Nasze usługi</span></h4>
+        <a href="/customer/addComputer"><span>Dodaj komputer</span></a>
+        <a href="/customer/reportComputerDamage"><span>Zgłoś usterkę</span></a>
+    </div>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <h4><span class="underline-span">Nasz serwis</span></h4>
+        <a href="/admin"><i class="fas fa-desktop"></i><span>Strona główna</span></a>
+        <a href="/admin/repairers"><i class="fas fa-user"></i><span>Serwisanci</span></a>
+        <a href="/admin/customers"><i class="fas fa-user"></i><span>Klienci</span></a>
+        <a href="/admin/computerDamages"><i class="fas fa-window-close"></i><span>Usterki</span></a>
+
+        <h4><span class="underline-span">Usługi</span></h4>
+        <a href="/admin/addRepairer"><span>Dodaj serwisanta</span></a>
+    </div>
+    <div sec:authorize="hasRole('ROLE_REPAIRER')">
+        <h4><span class="underline-span">Nasz serwis</span></h4>
+        <a href="/repairer"><i class="fas fa-desktop"></i><span>Strona główna</span></a>
+        <a href="/repairer/computerDamages"><i class="fas fa-window-close"></i><span>Usterki</span></a>
+        <a href="/userInfo"><i class="fas fa-user"></i><span>Mój profil</span></a>
+
+<!--        <h4><span class="underline-span">Usługi</span></h4>-->
+<!--        <a href="/admin/addRepairer"><span>Dodaj serwisanta</span></a>-->
+    </div>
+</div>
+
+</body>
+</html>

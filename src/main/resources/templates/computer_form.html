@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+<div th:fragment="computer_form">
+    <p>Typ</p>
+    <div class="select">
+        <select th:field="*{type}">
+            <option value="Laptop">Laptop</option>
+            <option value="Komputer stacjonarny">Komputer stacjonarny</option>
+        </select>
+    </div>
+
+    <p>Producent</p>
+    <input type=text placeholder="Producent" th:field="*{brand}">
+    <label th:if="${#fields.hasErrors('brand')}" th:text="${#fields.errors('brand').get(0)}"></label>
+
+    <p>Model</p>
+    <input type=text placeholder="Model" th:field="*{model}">
+    <label th:if="${#fields.hasErrors('model')}" th:text="${#fields.errors('model').get(0)}"></label>
+
+    <p>Rok produkcji</p>
+    <input type=text placeholder="Rok produkcji" th:field="*{yearOfProduction}">
+    <label th:if="${#fields.hasErrors('yearOfProduction')}" th:text="${#fields.errors('yearOfProduction').get(0)}"></label>
+
+    <p>System operacyjny</p>
+    <input type=text placeholder="System operacyjny" th:field="*{operatingSystem}">
+    <label th:if="${#fields.hasErrors('operatingSystem')}" th:text="${#fields.errors('operatingSystem').get(0)}"></label>
+
+    <p>Procesor</p>
+    <input type=text placeholder="Procesor" th:field="*{processor}">
+    <label th:if="${#fields.hasErrors('processor')}" th:text="${#fields.errors('processor').get(0)}"></label>
+
+    <p>Karta graficzna</p>
+    <input type=text placeholder="Karta graficzna" th:field="*{graphicsCard}">
+    <label th:if="${#fields.hasErrors('graphicsCard')}" th:text="${#fields.errors('graphicsCard').get(0)}"></label>
+
+    <p>Pamięć RAM</p>
+    <input type=text placeholder="Pamięć RAM" th:field="*{ramMemory}">
+    <label th:if="${#fields.hasErrors('ramMemory')}" th:text="${#fields.errors('ramMemory').get(0)}"></label>
+
+    <p>Zdjęcie (nie obowiązkowe)</p>
+    <input type=file name="photo" value="Wybierz zdjęcie" th:field="*{photo}">
+</div>
+</body>
+</html>

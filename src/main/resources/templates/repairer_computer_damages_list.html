@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usterki - My Auto Service</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+<div th:insert="header"></div>
+<div th:insert="sidebar"></div>
+
+<div class="content">
+    <h1><span class="underline-span">Usterki</span></h1>
+    <div class="computer-list">
+        <h1 th:if="${!acceptedComputerDamages.isEmpty()}"><span class="underline-span">Zaakceptowane przez klienta</span></h1>
+        <div th:each="ad : ${acceptedComputerDamages}">
+            <!--            <label class="error-label" th:if="${error != null and damage_id_error != null and damage_id_error == d.id}" th:text="${error}"></label>-->
+            <div class="computer-box">
+                <div class="computer-img">
+                    <img th:if="${ad.damagePhoto != null}" th:src="@{'data:image/png;base64,'+ ${ad.generateBase64Image()}}" th:alt="${ad.computer.brand} + ' ' + ${ad.computer.model}" alt="" src="/no-photo-available.png">
+                    <img th:if="${ad.damagePhoto == null}" src="/no-photo-available.png" alt="">
+                </div>
+                <div class="computer-info">
+                    <h6 th:text="${ad.topic}"></h6>
+                    <p th:text="${ad.computer.brand} + ' ' + ${ad.computer.model}"></p>
+                </div>
+                <a th:href="@{/repairer/computerDamages/{path}(path=${ad.id})}" class="more_info_btn" style="width: 150px">
+                    Więcej
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+                <a th:href="@{/repairer/reportFixOfComputerDamage/{path}(path=${ad.id})}" class="more_info_btn" style="width: 150px; background: darkgreen">
+                    Zgłoś naprawę
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+
+                <a th:href="@{/repairer/reportImpossibleFixOfComputerDamage/{path}(path=${ad.id})}" class="more_info_btn" style="width: 300px; background: darkgreen">
+                    Zgłoś niemożność naprawy
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+
+            </div>
+            <hr>
+        </div>
+
+        <h1 th:if="${!pendingDamages.isEmpty()}"><span class="underline-span">Oczekujące na zaakceptowanie</span></h1>
+        <div th:each="pd : ${pendingDamages}">
+            <!--            <label class="error-label" th:if="${error != null and damage_id_error != null and damage_id_error == d.id}" th:text="${error}"></label>-->
+            <div class="computer-box">
+                <div class="computer-img">
+                    <img th:if="${pd.damagePhoto != null}" th:src="@{'data:image/png;base64,'+ ${pd.generateBase64Image()}}" th:alt="${pd.computer.brand} + ' ' + ${pd.computer.model}" alt="" src="/no-photo-available.png">
+                    <img th:if="${pd.damagePhoto == null}" src="/no-photo-available.png" alt="">
+                </div>
+                <div class="computer-info">
+                    <h6 th:text="${pd.topic}"></h6>
+                    <p th:text="${pd.computer.brand} + ' ' + ${pd.computer.model}"></p>
+                </div>
+                <a th:href="@{/repairer/computerDamages/{path}(path=${pd.id})}" class="more_info_btn" style="width: 150px">
+                    Więcej
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+            <hr>
+        </div>
+
+        <h1 th:if="${!computerDamages.isEmpty()}"><span class="underline-span">Do analizy</span></h1>
+        <div th:each="d : ${computerDamages}">
+<!--            <label class="error-label" th:if="${error != null and damage_id_error != null and damage_id_error == d.id}" th:text="${error}"></label>-->
+            <div class="computer-box">
+                <div class="computer-img">
+                    <img th:if="${d.damagePhoto != null}" th:src="@{'data:image/png;base64,'+ ${d.generateBase64Image()}}" th:alt="${d.computer.brand} + ' ' + ${d.computer.model}" alt="" src="/no-photo-available.png">
+                    <img th:if="${d.damagePhoto == null}" src="/no-photo-available.png" alt="">
+                </div>
+                <div class="computer-info">
+                    <h6 th:text="${d.topic}"></h6>
+                    <p th:text="${d.computer.brand} + ' ' + ${d.computer.model}"></p>
+                </div>
+                <a th:href="@{/repairer/computerDamages/{path}(path=${d.id})}" class="more_info_btn" style="width: 150px">
+                    Więcej
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+                <a th:href="@{/repairer/addRemarksToComputerDamage/{path}(path=${d.id})}" class="more_info_btn edit_btn" style="width: 200px">
+                    Dodaj uwagi i wyceń
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+</body>
+</html>

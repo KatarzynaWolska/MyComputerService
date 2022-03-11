@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moje komputery - My Auto Service</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+<div th:insert="header"></div>
+<div th:insert="sidebar"></div>
+
+<div class="content">
+    <h1><span class="underline-span">Moje komputery</span></h1>
+    <div class="computer-list">
+        <div th:each="c : ${computers}">
+            <label class="error-label" th:if="${error != null and comp_id_error != null and comp_id_error == c.id}" th:text="${error}"></label>
+            <div class="computer-box">
+                <div class="computer-img">
+                    <img th:if="${c.photo != null}" th:src="@{'data:image/png;base64,'+ ${c.generateBase64Image()}}" th:alt="${c.brand} + ' ' + ${c.model}" alt="" src="/no-photo-available.png">
+                    <img th:if="${c.photo == null}" src="/no-photo-available.png" alt="">
+                </div>
+                <div class="computer-info">
+                    <h6 th:text="${c.brand}"></h6>
+                    <p th:text="${c.model}"></p>
+                </div>
+                <a th:href="@{/customer/myComputers/{path}(path=${c.id})}" class="more_info_btn">
+                    Więcej
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+                <a th:href="@{/customer/editComputer/{path}(path=${c.id})}" class="more_info_btn edit_btn">
+                    Edytuj
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+                <a th:href="@{/customer/deleteComputer/{path}(path=${c.id})}" class="more_info_btn delete_btn">
+                    Usuń
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+</body>
+</html>

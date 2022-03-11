@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+<div th:fragment="computer_damage_form">
+        <p>Komputer</p>
+        <div class="select">
+            <select th:field="*{computer}">
+                <option th:each="c : ${userComputers}" th:value="${c.id}" th:text="${c.brand} + ' ' + ${c.model}"></option>
+            </select>
+        </div>
+        <label th:if="${#fields.hasErrors('computer')}" th:text="${#fields.errors('computer').get(0)}"></label>
+
+        <p>Temat</p>
+        <input type=text placeholder="Temat" th:field="*{topic}">
+        <label th:if="${#fields.hasErrors('topic')}" th:text="${#fields.errors('topic').get(0)}"></label>
+
+        <p>Opis usterki</p>
+        <textarea placeholder="Opis usterki" th:field="*{description}"></textarea>
+        <label th:if="${#fields.hasErrors('description')}" th:text="${#fields.errors('description').get(0)}"></label>
+
+        <p>Zdjęcie usterki (nie obowiązkowe)</p>
+        <input type=file name="photo" value="Wybierz zdjęcie" th:field="*{damagePhoto}">
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nie masz uprawnień do przeglądania tej strony</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+<header>
+    <div sec:authorize="isAuthenticated()">
+        <div th:insert="header"></div>
+    </div>
+
+    <div sec:authorize="isAnonymous()">
+        <div class="left_header">
+            <h3><span>My</span> Computer Service</h3>
+        </div>
+        <div class="right_header" style="margin-top: -25px">
+            <div sec:authorize="isAnonymous()">
+                <a class="login_btn" th:href="@{/login}">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Zaloguj się
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div sec:authorize="isAuthenticated()">
+    <div th:insert="sidebar"></div>
+</div>
+
+<div class="form-box">
+    <h1>Nie masz uprawnień do przeglądania tej strony</h1>
+</div>
+</body>
+</html>
